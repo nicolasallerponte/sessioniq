@@ -49,15 +49,23 @@ def load_splits() -> tuple:
 
 
 def build_model() -> CalibratedClassifierCV:
-    base = lgb.LGBMClassifier(
-        n_estimators=500,
-        learning_rate=0.05,
-        num_leaves=63,
-        min_child_samples=100,
-        scale_pos_weight=13,
-        n_jobs=-1,
-        verbose=-1,
-    )
+    # Load tuned params if available, else use sensible defaults
+    params_path = MODEL_DIR / "best_params.joblib"
+    if params_path.exists():
+        params = joblib.load(params_path)
+        print(f"Loaded tuned params from {params_path}")
+    else:
+        params = {
+            "n_estimators": 500,
+            "learning_rate": 0.05,
+            "num_leaves": 63,
+            "min_child_samples": 100,
+            "scale_pos_weight": 13,
+            "n_jobs": -1,
+            "verbose": -1,
+        }
+
+    base = lgb.LGBMClassifier(**params)
     return CalibratedClassifierCV(
         base,
         cv=StratifiedKFold(n_splits=3),
