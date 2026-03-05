@@ -26,8 +26,6 @@ dependencies = [
     # Recommender
     "faiss-cpu>=1.8.0",
     "implicit>=0.7.2",
-    # LLM
-    "openai>=1.30.0",
     "google-generativeai>=0.7.0",
     # App
     "streamlit>=1.35.0",
@@ -48,6 +46,7 @@ dev = [
     "mypy>=1.10.0",
     "pre-commit>=3.7.0",
     "ipykernel>=6.29.0",
+    "kaggle>=2.0.0",
 ]
 
 [build-system]
@@ -71,3 +70,6 @@ ignore_missing_imports = true
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "--cov=src/sessioniq --cov-report=term-missing"
+
+[tool.ruff.lint.per-file-ignores]
+"src/sessioniq/pipeline/features.py" = ["E501"]

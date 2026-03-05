@@ -13,3 +13,4 @@ models/*.joblib
 htmlcov/
 dist/
 *.egg-info/
+/data/tmp
