@@ -26,7 +26,7 @@ def build_session_features(lf: pl.LazyFrame, max_events: int = 3) -> pl.LazyFram
             .over("user_session")
             .alias("event_rank")
         )
-        .filter(pl.col("event_rank") <= max_events)
+        .filter(pl.col("event_rank") <= 5)
         .group_by("user_session")
         .agg(
             [
@@ -89,7 +89,7 @@ if __name__ == "__main__":
     train_lf, _ = load_all()
 
     print("Building train features (first 3 events only)...")
-    train_features = build_session_features(train_lf, max_events=3).collect(
+    train_features = build_session_features(train_lf, max_events=5).collect(
         engine="streaming"
     )
     train_labels = build_labels(train_lf).collect(engine="streaming")
@@ -134,7 +134,7 @@ if __name__ == "__main__":
             FROM with_offset
             WHERE seconds_from_start <= 300
             GROUP BY user_session
-            HAVING COUNT(*) <= 3
+            HAVING COUNT(*) <= 5
         )
         SELECT
             w.user_session,

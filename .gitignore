@@ -14,3 +14,6 @@ htmlcov/
 dist/
 *.egg-info/
 /data/tmp
+*.joblib
+*.pkl
+*.parquet
