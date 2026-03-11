@@ -26,7 +26,6 @@ dependencies = [
     # Recommender
     "faiss-cpu>=1.8.0",
     "implicit>=0.7.2",
-    "google-generativeai>=0.7.0",
     # App
     "streamlit>=1.35.0",
     "plotly>=5.22.0",
@@ -36,6 +35,9 @@ dependencies = [
     "loguru>=0.7.2",
     "joblib>=1.4.0",
     "shap>=0.46.0,<0.51.0",
+    "optuna>=4.7.0",
+    "matplotlib>=3.10.8",
+    "httpx>=0.28.1",
 ]
 
 [dependency-groups]
@@ -73,3 +75,4 @@ addopts = "--cov=src/sessioniq --cov-report=term-missing"
 
 [tool.ruff.lint.per-file-ignores]
 "src/sessioniq/pipeline/features.py" = ["E501"]
+"src/sessioniq/llm/*.py" = ["E501"]
